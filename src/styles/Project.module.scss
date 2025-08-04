@@ -1,0 +1,374 @@
+.projectsSection {
+  background: var(--bg-main);
+  padding: 92px 0 108px 0;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.4rem;
+
+  .sectionNumber {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .sectionTitle {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .divider {
+    flex: 1;
+    height: 1.5px;
+    margin-left: 1rem;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0.25;
+  }
+}
+
+.grid {
+  padding: 0.3rem 0.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.1rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 660px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.card,
+.ctaCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border);
+  border-radius: 1.1rem;
+  box-shadow: 0 8px 32px rgba(95, 241, 210, 0.11);
+  padding: 1.26rem 1.1rem 1.2rem 1.1rem;
+  margin: 0.15rem;
+  min-height: 12.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.16s, box-shadow 0.22s, background 0.19s;
+  h3 {
+    font-size: 1.13rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-bottom: 0.21rem;
+  }
+
+  p {
+    font-size: 0.96rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.54;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--accent);
+    background: rgba(95, 241, 210, 0.055);
+  }
+}
+
+.cardImgWrap {
+  width: 100%;
+  height: 124px;
+  min-height: 104px;
+  overflow: hidden;
+  border-radius: 0.85rem 0.85rem 0 0;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(120deg, var(--accent), rgba(44, 65, 110, 0.09));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 54%;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.ctaCard {
+  border-style: dashed;
+  border-color: var(--accent);
+  background: rgba(95, 241, 210, 0.1);
+  color: var(--accent);
+  text-align: center;
+  justify-content: center;
+
+  h3 {
+    color: var(--accent);
+  }
+
+  .ctaButton {
+    margin: 0.8rem auto 0 auto;
+    padding: 0.7rem 1.27rem;
+    border-radius: 999px;
+    border: 1.45px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+    background: transparent;
+    transition: all 0.18s;
+
+    &:hover {
+      background: var(--accent);
+      color: var(--bg-main);
+    }
+  }
+}
+
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.39rem;
+  margin-bottom: 0.6rem;
+  list-style: none;
+  padding: 0;
+
+  li {
+    background: rgba(95, 241, 210, 0.15);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.84rem;
+    padding: 0.19rem 0.61rem;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* === Modal === */
+.modalOverlay {
+  position: fixed;
+  z-index: 1800;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(12, 18, 28, 0.74);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px) saturate(1.5);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.modalCard {
+  border: 2.15px solid var(--accent);
+  background: var(--bg-main);
+  border-radius: 1.3rem;
+  box-shadow: 0 34px 112px 0 rgba(95, 241, 210, 0.22),
+    0 1.2px 5px rgba(55, 245, 190, 0.1);
+  min-width: 340px;
+  max-width: 520px;
+  width: 96vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 1.6rem 1.4rem 1.3rem 1.4rem;
+  animation: popupModal 0.46s cubic-bezier(0.14, 1.24, 0.26, 1.09) both;
+
+  @media (max-width: 600px) {
+    min-width: 0;
+    max-width: 99vw;
+    padding: 1.2rem;
+  }
+}
+
+@keyframes popupModal {
+  0% {
+    opacity: 0;
+    transform: scale(0.93) translateY(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalHero {
+  width: 100%;
+  aspect-ratio: 2.2 / 1;
+  max-height: 180px;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    var(--accent),
+    rgba(18, 24, 38, 0.1)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.3rem 1.3rem 0 0;
+  margin-bottom: 0.6rem;
+
+  .modalImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 54%;
+    display: block;
+  }
+}
+
+.modalContent {
+  width: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.84rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 60vh;
+
+  h3 {
+    font-size: 1.22rem;
+    color: var(--accent);
+    margin-bottom: 0.1rem;
+    font-weight: 700;
+  }
+
+  .modalDesc {
+    color: var(--muted);
+    font-size: 1.07rem;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 600px) {
+    max-height: 66vh;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  background: transparent;
+  font-size: 1.84rem;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.13s;
+  z-index: 10;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.codeBlock {
+  width: 100%;
+  overflow-x: auto;
+  background: #181b25;
+  color: #5ff1d2;
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+  font-size: 0.98rem;
+  border-radius: 0.45rem;
+  padding: 0.69rem 0.97rem;
+  margin: 0.34rem 0 0.73rem 0;
+  word-break: break-word;
+  box-shadow: 0 1.5px 12px 0 rgba(40, 245, 180, 0.1);
+  white-space: pre-line;
+
+  @media (max-width: 650px) {
+    font-size: 0.85rem;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.6rem;
+
+  a {
+    background: rgba(95, 241, 210, 0.14);
+    color: var(--accent);
+    border-radius: 6px;
+    padding: 0.38rem 0.87rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+
+    &:hover {
+      background: var(--accent);
+      color: #111518;
+    }
+  }
+}
+
+/* Responsive fixes */
+@media (max-width: 650px) {
+  .modalCard {
+    max-width: 99vw;
+  }
+
+  .modalHero {
+    min-height: 70px;
+  }
+
+  .grid {
+    gap: 0.85rem;
+  }
+
+  .card,
+  .ctaCard {
+    min-height: 8.9rem;
+    padding: 0.89rem 0.78rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0rem;
+    margin-bottom: 2rem;
+
+    .divider {
+      display: none;
+    }
+  }
+}
+
+.sectionNumber {
+  font-size: clamp(1rem, 1.2rem, 1.3rem);
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+}

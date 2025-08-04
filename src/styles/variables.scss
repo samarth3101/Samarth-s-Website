@@ -1,0 +1,43 @@
+:root {
+  --bg-main: #0c1b2c;
+  --text-main: #b5bac2;
+  --accent: #5ff1d2;
+  --secondary: #656f7e;
+  --muted: #848c9c;
+  --border: #2c344b;
+}
+
+[data-theme="light"] {
+  --bg-main: #f4f6fbda;
+  --text-main: #23283a;
+  --accent: #2063b1;
+  --secondary: #2563eb; 
+  --muted: #c7cdd8;
+  --border: #d7dde6;
+}
+
+:root {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --pointer-from-center: 0;
+  --pointer-from-top: 0.5;
+  --pointer-from-left: 0.5;
+  --card-opacity: 0;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --background-x: 50%;
+  --background-y: 50%;
+  --grain: none;
+  --icon: none;
+  --behind-gradient: none;
+  --inner-gradient: none;
+
+  --sunpillar-clr-1: var(--sunpillar-1);
+  --sunpillar-clr-2: var(--sunpillar-2);
+  --sunpillar-clr-3: var(--sunpillar-3);
+  --sunpillar-clr-4: var(--sunpillar-4);
+  --sunpillar-clr-5: var(--sunpillar-5);
+  --sunpillar-clr-6: var(--sunpillar-6);
+  --card-radius: 30px;
+}
+

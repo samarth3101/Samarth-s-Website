@@ -1,0 +1,114 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[11].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[11].use[5]!./src/styles/globals.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --bg-main: #0c1b2c;
+  --text-main: #b5bac2;
+  --accent: #5ff1d2;
+  --secondary: #656f7e;
+  --muted: #848c9c;
+  --border: #2c344b;
+}
+
+[data-theme=light] {
+  --bg-main: #f4f6fbda;
+  --text-main: #23283a;
+  --accent: #2063b1;
+  --secondary: #2563eb;
+  --muted: #c7cdd8;
+  --border: #d7dde6;
+}
+
+:root {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --pointer-from-center: 0;
+  --pointer-from-top: 0.5;
+  --pointer-from-left: 0.5;
+  --card-opacity: 0;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --background-x: 50%;
+  --background-y: 50%;
+  --grain: none;
+  --icon: none;
+  --behind-gradient: none;
+  --inner-gradient: none;
+  --sunpillar-clr-1: var(--sunpillar-1);
+  --sunpillar-clr-2: var(--sunpillar-2);
+  --sunpillar-clr-3: var(--sunpillar-3);
+  --sunpillar-clr-4: var(--sunpillar-4);
+  --sunpillar-clr-5: var(--sunpillar-5);
+  --sunpillar-clr-6: var(--sunpillar-6);
+  --card-radius: 30px;
+}
+
+/* Using your custom color variables */
+:root {
+  --bg-main: #0c1b2c;
+  --text-main: #b5bac2;
+  --accent: #5ff1d2;
+  --secondary: #656f7e;
+  --muted: #848c9c;
+  --border: #2c344b;
+}
+
+[data-theme=light] {
+  --bg-main: #f4f6fbda;
+  --text-main: #23283a;
+  --accent: #2063b1;
+  --secondary: #2563eb;
+  --muted: #c7cdd8;
+  --border: #d7dde6;
+}
+
+/* Glass variables for chatbot only */
+:root {
+  --glass-bg: rgba(95, 241, 210, 0.08);
+  --glass-border: rgba(95, 241, 210, 0.15);
+  --glass-hover: rgba(95, 241, 210, 0.12);
+  --smoky-overlay: rgba(12, 27, 44, 0.85);
+}
+
+[data-theme=light] {
+  --glass-bg: rgba(32, 99, 177, 0.08);
+  --glass-border: rgba(32, 99, 177, 0.15);
+  --glass-hover: rgba(32, 99, 177, 0.12);
+  --smoky-overlay: rgba(244, 246, 251, 0.85);
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Recursive";
+  src: url("/fonts/recursive-VF.woff2") format("woff2");
+  font-weight: 300 1000;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Recursive";
+  src: url("/fonts/recursive-VF.woff2") format("woff2");
+  font-weight: 300 1000;
+  font-style: normal;
+  font-display: swap;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}

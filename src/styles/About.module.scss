@@ -1,0 +1,617 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+.about {
+  min-height: 100vh;
+  padding: 100px 0;
+  background: var(--bg-main);
+  position: relative;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 25% 25%, rgba(95, 241, 210, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(43, 143, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-left: 2rem;
+    opacity: 0.3;
+  }
+}
+
+.sectionNumber {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.titleWrapper {
+  position: relative;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.1;
+  
+  .split-parent {
+    display: inline-block;
+  }
+}
+
+/* UPDATED: Main Content - Photo Left, Text Right */
+.content {
+  display: grid;
+  grid-template-columns: 380px 1fr; /* Fixed width for photo section */
+  gap: 5rem;
+  align-items: start;
+}
+
+/* LEFT SIDE - Profile Section */
+.profileSection {
+  position: sticky;
+  top: 120px;
+}
+
+.profileCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+
+    .profileBorder {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(95, 241, 210, 0.3);
+    }
+  }
+}
+
+.profileImage {
+  position: relative;
+  margin: 0 auto 1.5rem;
+  width: 200px;
+  height: 200px;
+}
+
+/* UPDATED: Actual Photo Styling */
+.profilePhoto {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+  z-index: 2;
+  border: 3px solid var(--bg-main);
+  transition: all 0.3s ease;
+
+  /* Fallback for when image doesn't load */
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.profileBorder {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid var(--secondary);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.profileInfo {
+  h4 {
+    color: var(--text-main);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ADDED: Profile Stats */
+.profileStats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  text-align: center;
+  
+  .statNumber {
+    display: block;
+    color: var(--accent);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .statLabel {
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* RIGHT SIDE - Text Content */
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.introduction {
+  p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.highlight {
+  color: var(--accent);
+  font-weight: 600;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+}
+
+/* Skills Grid */
+.skillsGrid {
+  h3 {
+    color: var(--text-main);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.skillsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.skillCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(95, 241, 210, 0.05);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    
+    .skillIcon {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+  }
+
+  span {
+    color: var(--secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+}
+
+.skillIcon {
+  color: var(--secondary);
+  transition: all 0.3s ease;
+}
+
+/* Technologies Section */
+/* Technologies Section */
+.techSection {
+  .techContainer {
+    h3 {
+      color: var(--text-main);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns */
+  grid-template-rows: repeat(2, 1fr);    /* Added 2 rows */
+  gap: 1.5rem;
+}
+
+.techCategory {
+  h4 {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
+
+
+.techBullet {
+  color: var(--accent);
+  margin-right: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .profileSection {
+    position: relative;
+    top: auto;
+    order: 2; /* Move photo below text on tablets */
+  }
+
+  .textContent {
+    order: 1; /* Text appears first on tablets */
+  }
+
+  .techGrid {
+    grid-template-columns: repeat(2, 1fr); /* Maintain quad layout */
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  /* UPDATED: Mobile Content Layout */
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* UPDATED: Profile Section First (Above Text) */
+  .profileSection {
+    order: -1; /* Move profile card to top */
+    position: relative;
+    top: auto;
+    width: 100%;
+    max-width: 320px;
+    align-self: center; /* Center the profile card */
+    margin-bottom: 1rem;
+  }
+
+  /* UPDATED: Text Content Second */
+  .textContent {
+    order: 0; /* Text appears after profile */
+    width: 100%;
+  }
+
+  .skillsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .techGrid {
+    grid-template-columns: repeat(2, 1fr); /* Keep quad layout on mobile */
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem; /* Smaller gap for mobile */
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+    margin: 0 auto; /* Center the card */
+  }
+
+  .profileImage {
+    width: 160px;
+    height: 160px;
+  }
+
+  .profilePhoto {
+    width: 150px;
+    height: 150px;
+  }
+
+  .profileBorder {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* ADDED: Enhanced Mobile Portrait Layout */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .content {
+    gap: 2.5rem;
+  }
+
+  .profileSection {
+    max-width: 280px;
+  }
+
+  .profileCard {
+    padding: 1.25rem;
+  }
+
+  .profileImage {
+    width: 140px;
+    height: 140px;
+  }
+
+  .profilePhoto {
+    width: 130px;
+    height: 130px;
+  }
+
+  .profileBorder {
+    width: 140px;
+    height: 140px;
+  }
+
+  .introduction p {
+    font-size: 1rem;
+  }
+
+  .skillCard {
+    padding: 1rem;
+  }
+
+  .techGrid {
+    grid-template-columns: repeat(2, 1fr); /* Maintain quad layout even on small mobile */
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.8rem; /* Even smaller gap for very small screens */
+  }
+
+  .profileStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .skillCard,
+  .profileCard,
+  .profilePhoto {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// Add to your About.module.scss
+
+.customProfileCard {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.statsSection {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.stat {
+  text-align: center;
+  
+  .statNumber {
+    display: block;
+    color: var(--accent);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .statLabel {
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+}
+
+// Mobile responsive for stats
+@media (max-width: 480px) {
+  .statsSection {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+
+// Add these styles to your existing About.module.scss file
+
+.variableProximityParagraph {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.variableProximityText {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  
+  // Override highlight colors for Variable Proximity text
+  :global(.variable-proximity-char) {
+    color: inherit;
+    
+    &:hover {
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
+    }
+  }
+}
+
+// Enhanced introduction section for Variable Proximity
+.introduction {
+  margin-bottom: 3rem;
+  
+  p {
+    &:not(.variableProximityParagraph) {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      
+      @media (max-width: 768px) {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+    }
+  }
+  
+  .highlight {
+    color: var(--accent);
+    font-weight: 600;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+  }
+}
+
+.highlight {
+  color: var(--accent);
+  font-weight: 600;
+  text-shadow:
+    0 0 6px var(--accent),
+    0 0 10px var(--accent),
+    0 0 14px var(--accent);
+}
+

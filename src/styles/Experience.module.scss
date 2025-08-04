@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+.experience {
+  margin-top: 2rem;
+  min-height: 100vh;
+  background: var(--bg-main);
+  padding: 100px 0;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 25% 25%, rgba(95, 241, 210, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(43, 143, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-left: 2rem;
+    opacity: 0.3;
+  }
+}
+
+.sectionNumber {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1rem, 1.2rem, 1.3rem);
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.divider {
+  display: none;
+}
+
+.experienceContent {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  min-height: 400px;
+}
+
+.companiesSidebar {
+  display: flex;
+  position: relative;
+  flex-shrink: 0;
+  width: 200px;
+  flex-direction: column;
+}
+
+.barContainer {
+  position: relative;
+  width: 2px;
+  background: var(--border);
+  margin-right: 0;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.activeBar {
+  position: absolute;
+  width: 2px;
+  height: 42px;
+  background: var(--accent);
+  transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(100, 255, 218, 0.5);
+}
+
+.companiesList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.companyButton {
+  background: none;
+  border: none;
+  padding: 0 20px;
+  height: 42px;
+  text-align: left;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  
+  /* FIX: Prevent text overflow in company buttons */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+  hyphens: auto;
+
+  &:hover,
+  &.active {
+    color: var(--accent);
+    background: rgba(100, 255, 218, 0.1);
+  }
+
+  /* Add icon support */
+  .companyIcon {
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .companyName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.experienceDetails {
+  flex: 1;
+  background: rgba(100, 255, 218, 0.02);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    border-radius: 8px 8px 0 0;
+  }
+}
+
+.roleHeader {
+  margin-bottom: 25px;
+}
+
+.roleTitle {
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 5px;
+  line-height: 1.3;
+  
+  /* FIX: Handle long role titles */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  
+  /* Prevent single-line overflow */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.atSymbol {
+  color: var(--accent);
+  margin: 0 4px;
+}
+
+.companyName {
+  color: var(--accent);
+  
+  /* FIX: Handle long company names */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.experienceMeta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 25px;
+  
+  /* FIX: Handle long location/duration text */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.metaDot {
+  margin: 0 8px;
+  opacity: 0.6;
+}
+
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+    
+    /* FIX: Prevent highlight text overflow */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-align: justify;
+
+    &::before {
+      content: "▶";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--accent);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.bgGlassBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.03), transparent);
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 3rem;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .experienceContent {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .companiesSidebar {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .barContainer {
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    margin-bottom: 0;
+    order: 2;
+  }
+
+  .activeBar {
+    width: 120px;
+    height: 2px;
+    transform: translateX(0) !important;
+    display: none;
+  }
+
+  .companiesList {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0;
+    order: 1;
+    padding: 0.5rem 0 0 0;
+    background: var(--bg-card);
+    border-radius: 8px 8px 0 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .companyButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    min-width: max(105px, 23vw);
+    max-width: 155px;
+    flex: 0 0 auto;
+    margin: 0 2px;
+    padding: 0 8px;
+    font-size: 12px;
+    height: 44px;
+    text-align: center;
+    border-bottom: 2.5px solid transparent;
+    border-radius: 0;
+    transition: all 0.18s;
+    z-index: 1;
+    
+    /* FIX: Better mobile text handling */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover,
+    &.active {
+      color: var(--accent);
+      background: rgba(100,255,218,0.10);
+      border-bottom: 2.5px solid var(--accent);
+    }
+
+    .companyIcon {
+      display: none; /* Hide icons on mobile for space */
+    }
+
+    .companyName {
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .experienceDetails {
+    padding: 1.5rem;
+  }
+
+  .roleTitle {
+    font-size: clamp(16px, 4vw, 18px);
+    -webkit-line-clamp: 3; 
+  }
+
+  .highlights li {
+    font-size: 15px;
+    line-height: 1.5;
+    padding-left: 25px;
+    
+    &::before {
+      font-size: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .experience {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .companyButton {
+    min-width: 90px;
+    font-size: 10px;
+    padding: 0 6px;
+    
+    .companyName {
+      font-size: 10px;
+    }
+  }
+
+  .roleTitle {
+    font-size: clamp(14px, 5vw, 16px);
+  }
+
+  .highlights li {
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  .experienceDetails {
+    padding: 1.25rem;
+  }
+}
+
+.ctaFooter {
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtleMessage {
+  font-size: 1.08rem;
+  letter-spacing: 0.015em;
+  font-weight: 500;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpSoft 1.6s ease-out forwards;
+  animation-delay: 0.3s;
+  text-align: center;
+  
+  /* FIX: Handle overflow in footer message */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@keyframes fadeUpSoft {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .activeBar,
+  .companyButton,
+  .subtleMessage {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .companyButton {
+    border: 1px solid var(--border);
+    
+    &:hover,
+    &.active {
+      border-color: var(--accent);
+    }
+  }
+}

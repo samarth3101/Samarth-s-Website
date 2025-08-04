@@ -1,0 +1,32 @@
+.hexWrap {
+  position: relative;
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  user-select: none;
+  transition: filter 0.16s;
+  outline: none;
+}
+
+.hex {
+  width: 42px; height: 42px;
+}
+
+.hexBorder {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  opacity: 0.86;
+  transition: stroke 0.25s;
+}
+
+.letter {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', 'Inter', monospace;
+  font-weight: 700;
+  font-size: 1.13rem;
+  color: var(--accent);
+  letter-spacing: 0.11em;
+  transition: color 0.25s;
+  user-select: none;
+}
