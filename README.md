@@ -6,7 +6,7 @@
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![SCSS](https://img.shields.io/badge/SCSS-DD6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 🔐 **Secured by [Zecure Systems](https://github.com/samarth3101/zecure-systems)** – AI-powered security and traffic monitoring
