@@ -25,7 +25,7 @@
 - 🌙 **Dark Mode Ready** – Adaptive design for all preferences
 - 📱 **Mobile First** – Looks great on all screen sizes
 - 🎯 **SEO Optimized** – Clean URLs, metadata, and accessibility
-- 🔗 **Custom Domain** – Hosted on `samarthpatil.com`
+<!-- - 🔗 **Custom Domain** – Hosted on `samarthpatil.com` -->
 
 ---
 
