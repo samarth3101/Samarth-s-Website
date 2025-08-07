@@ -5,20 +5,6 @@ import styles from "../../styles/Experience.module.scss";
 
 const experiences = [
   {
-    id: "jpmorgan",
-    company: "J.P. Morgan",
-    role: "Software Engineering Virtual Intern",
-    duration: "May - Jul 2024",
-    location: "Virtual Experience",
-    icon: Building,
-    highlights: [
-      "Developed skills in financial technology through virtual job simulation, gaining insights into market analysis and risk assessment",
-      "Built responsive web applications using React and Node.js, handling real-time financial data streams",
-      "Implemented secure authentication systems and data visualization dashboards for trading platform interfaces",
-      "Applied software engineering best practices in a high-stakes financial environment with zero-tolerance for errors"
-    ]
-  },
-  {
     id: "altair",
     company: "Altair",
     role: "Data Science Intern - COHORT 10",
@@ -30,6 +16,20 @@ const experiences = [
       "Built production-ready machine learning pipelines processing 10,000+ data points with 95% accuracy",
       "Collaborated with cross-functional teams to deliver data-driven insights that influenced strategic business decisions",
       "Optimized data preprocessing workflows, reducing computation time by 40% through efficient algorithm implementation"
+    ]
+  },
+    {
+    id: "jpmorgan",
+    company: "J.P. Morgan",
+    role: "Software Engineering Virtual Intern",
+    duration: "May - Jul 2024",
+    location: "Virtual Experience",
+    icon: Building,
+    highlights: [
+      "Developed skills in financial technology through virtual job simulation, gaining insights into market analysis and risk assessment",
+      "Built responsive web applications using React and Node.js, handling real-time financial data streams",
+      "Implemented secure authentication systems and data visualization dashboards for trading platform interfaces",
+      "Applied software engineering best practices in a high-stakes financial environment with zero-tolerance for errors"
     ]
   },
   {
