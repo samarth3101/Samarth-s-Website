@@ -8,15 +8,6 @@ const projects = [
     title: 'PCU ACM Website',
     description: 'A full-stack website project for PCU ACM, featuring a modern UI/UX design, ticketing system, contact form, and feedback section with robust backend implementation.',
     tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-    code: `const TicketingSystem = () => {
-  const handleBooking = async (eventId) => {
-    const response = await fetch('/api/tickets', {
-      method: 'POST',
-      body: JSON.stringify({ eventId, userId })
-    });
-    return response.json();
-  };
-};`,
     img: '/assets/images/pcuacm.png',
     repo: 'https://github.com/samarth3101/athertech_acm_off_web',
     link: 'https://pcuacm.netlify.app'
@@ -25,14 +16,6 @@ const projects = [
     title: 'Real-Time Stock Data Visualization',
     description: 'A financial data visualization project utilizing Perspective to render real-time stock market trends, inspired by J.P. Morgan & Chase + Forage experience.',
     tech: ['React', 'Perspective', 'WebSocket', 'Financial APIs'],
-    code: `const StockChart = () => {
-  const [stockData, setStockData] = useState([]);
-  useEffect(() => {
-    const ws = new WebSocket('wss://stock-api');
-    ws.onmessage = (e) => setStockData(JSON.parse(e.data));
-  }, []);
-  return <PerspectiveViewer data={stockData} />;
-};`,
     img: '/assets/images/jpmorgen.png',
     repo: 'https://github.com/samarth3101/SkillVenture/tree/main/Project-1',
     link: 'https://github.com/samarth3101/SkillVenture/tree/main/Project-1'
@@ -41,11 +24,6 @@ const projects = [
     title: 'GoGarage',
     description: 'A web project focused on REST APIs and backend technologies, designed to enhance practical knowledge in web development with a clean and scalable structure.',
     tech: ['Node.js', 'Express', 'REST API', 'MongoDB'],
-    code: `app.post('/api/vehicles', async (req, res) => {
-  const vehicle = new Vehicle(req.body);
-  await vehicle.save();
-  res.status(201).json(vehicle);
-});`,
     img: '/assets/images/gogarage.png',
     repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/5.GoGarage'
   },
@@ -53,13 +31,6 @@ const projects = [
     title: 'ValueVista Project',
     description: 'A full-stack web application integrating SQL for data management, form submissions, and dynamic frontend-backend interactions with comprehensive data visualization.',
     tech: ['React', 'Node.js', 'SQL', 'Express'],
-    code: `const DataVisualization = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetchSQLData().then(setData);
-  }, []);
-  return <Chart data={data} />;
-};`,
     img: '/assets/images/valuevista.png',
     repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/6.%20ValueVista'
   },
@@ -67,17 +38,6 @@ const projects = [
     title: 'SkillSwap eLearning Platform',
     description: 'A cutting-edge web platform featuring a human-touch virtual instructor to provide interactive learning experiences with free knowledge modules and visually appealing UI/UX.',
     tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-    code: `const LearningPlatform = () => {
-  const [courses, setCourses] = useState([]);
-  const [activeLesson, setActiveLesson] = useState(null);
-  
-  return (
-    <div className="platform">
-      <CourseList courses={courses} />
-      <InteractiveLessonPlayer lesson={activeLesson} />
-    </div>
-  );
-};`,
     img: '/assets/images/skillswap.png',
     repo: 'https://github.com/samarth3101/SkillVenture/tree/35264c359344cd6a4c6a9c183d77e3a4d4aa771f/Project-2/SKILLSWAP-PRO',
     link: 'https://github.com/samarth3101/SkillVenture/tree/35264c359344cd6a4c6a9c183d77e3a4d4aa771f/Project-2/SKILLSWAP-PRO'
@@ -86,10 +46,6 @@ const projects = [
     title: 'Spotify Clone',
     description: 'A web-based Spotify clone featuring an interactive UI, music playbook, and seamless user experience using modern web technologies.',
     tech: ['React', 'JavaScript', 'Spotify API', 'CSS'],
-    code: `const audioPlayer = () => {
-  const [currentTrack, setCurrentTrack] = useState(null);
-  return <AudioControl track={currentTrack} />;
-};`,
     img: '/assets/images/spotify.png',
     repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/2.Spotify-clone',
     link: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/2.Spotify-clone'
@@ -98,11 +54,6 @@ const projects = [
     title: 'CyberTronix - Transformers Project',
     description: 'A dynamic web project showcasing rotating cards, animations, and interactive UI elements using JavaScript and CSS with advanced 3D transformations.',
     tech: ['JavaScript', 'CSS', 'HTML', 'Animations'],
-    code: `const transformCard = (element, rotation) => {
-  element.style.transform = 
-    \`rotateY(\${rotation}deg) rotateX(15deg)\`;
-  element.style.transition = 'transform 0.6s ease';
-};`,
     img: '/assets/images/cyber.png',
     repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/4.%20Transformers',
     link: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/4.%20Transformers'
@@ -111,15 +62,6 @@ const projects = [
     title: 'Simon Game',
     description: 'A classic Simon Game built purely with JavaScript, utilizing DOM manipulation and core web development concepts to create an interactive and engaging memory game.',
     tech: ['JavaScript', 'HTML', 'CSS', 'DOM'],
-    code: `const simonGame = {
-  sequence: [],
-  playerSequence: [],
-  level: 0,
-  generateSequence() {
-    this.sequence.push(Math.floor(Math.random() * 4));
-    this.playSequence();
-  }
-};`,
     img: '/assets/images/simon.png',
     repo: 'https://github.com/samarthpatil/simon-game',
     link: 'https://simon-game-demo.vercel.app'
