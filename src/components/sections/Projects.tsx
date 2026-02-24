@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import Carousel from '../ui/Carousel';
 import styles from "../../styles/Project.module.scss";
 
 const projects = [
@@ -154,9 +155,31 @@ export default function ProjectsSection() {
           <div className={styles.divider} />
         </div>
 
-        <div className={styles.grid}>
-          {projects.map((proj, idx) => (
-            <motion.div
+        {/* Mobile Carousel View */}
+        {isMobile ? (
+          <Carousel
+            items={projects.map((proj, idx) => ({
+              id: idx,
+              title: proj.title,
+              description: proj.description,
+              tech: proj.tech,
+              img: proj.img,
+              repo: proj.repo,
+              link: proj.link,
+              isCTA: proj.isCTA
+            }))}
+            baseWidth={340}
+            autoplay={true}
+            autoplayDelay={4000}
+            pauseOnHover={true}
+            loop={true}
+            onItemClick={(idx) => setOpenIdx(idx)}
+          />
+        ) : (
+          /* Desktop/Tablet Grid View */
+          <div className={styles.grid}>
+            {projects.map((proj, idx) => (
+              <motion.div
               key={idx}
               className={proj.isCTA ? styles.ctaCard : styles.card}
               layoutId={proj.isCTA ? undefined : `project-${idx}`}
@@ -221,6 +244,7 @@ export default function ProjectsSection() {
             </motion.div>
           ))}
         </div>
+        )}
 
         {/* --- Animated Modal Overlay --- */}
         <AnimatePresence mode="wait">

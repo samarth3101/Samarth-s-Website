@@ -4,12 +4,23 @@
   overflow-x: hidden;
   position: relative;
   isolation: isolate;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .container {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 0.5rem;
+  }
 }
 
 .header {
@@ -440,11 +451,12 @@
   }
 
   .container {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
 
   .header {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
 
     .sectionTitle {
       font-size: clamp(1.5rem, 8vw, 2rem);

@@ -61,8 +61,8 @@ const About: React.FC = () => {
 
     // Profile card configuration
     const profileStats = [
-        { number: "2+", label: "Years Coding" },
-        { number: "10+", label: "Projects" }
+        { number: "3+", label: "Years Coding" },
+        { number: "25+", label: "Projects" }
     ];
 
     const handleContactClick = () => {

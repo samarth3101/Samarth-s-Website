@@ -658,6 +658,23 @@
   }
 }
 
+@media (max-width: 480px) {
+  .chatWindow {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+    height: 500px;
+    right: 20px;
+  }
+  
+  .socialContainer {
+    left: 10px;
+  }
+  
+  .emailContainer {
+    right: 10px;
+  }
+}
+
 /* Light theme adjustments */
 [data-theme="light"] {
   .message.userMessage .messageContent {

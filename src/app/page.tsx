@@ -16,12 +16,14 @@ const HomePage: React.FC = () => {
     <>
       <Navbar />
       <SocialIcons /> 
-      <Hero />
-      <About />
-      <Experience/>
-      <Projects />
-      <Courses />
-      <Contact/>
+      <main>
+        <Hero />
+        <About />
+        <Experience/>
+        <Projects />
+        <Courses />
+        <Contact/>
+      </main>
       <Footer/>
     </>
   );
