@@ -113,7 +113,7 @@ export default function Carousel({
                 onItemClick(currentIndex);
               }
             }}
-            style={{ cursor: items[currentIndex].isCTA ? 'pointer' : 'zoom-in' }}
+            style={{ cursor: items[currentIndex].isCTA ? 'pointer' : (onItemClick ? 'zoom-in' : 'grab') }}
           >
             <div className={`${styles.card} ${items[currentIndex].isCTA ? styles.ctaCard : ''}`}>
               {items[currentIndex].img && (

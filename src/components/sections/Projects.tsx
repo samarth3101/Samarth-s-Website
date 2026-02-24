@@ -173,7 +173,6 @@ export default function ProjectsSection() {
             autoplayDelay={4000}
             pauseOnHover={true}
             loop={true}
-            onItemClick={(idx) => setOpenIdx(idx)}
           />
         ) : (
           /* Desktop/Tablet Grid View */
@@ -246,9 +245,9 @@ export default function ProjectsSection() {
         </div>
         )}
 
-        {/* --- Animated Modal Overlay --- */}
+        {/* --- Animated Modal Overlay (Desktop Only) --- */}
         <AnimatePresence mode="wait">
-          {openIdx !== null && (
+          {openIdx !== null && !isMobile && (
             <motion.div
               className={styles.modalOverlay}
               initial={{ opacity: 0 }}
