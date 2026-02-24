@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import styles from "../../styles/Project.module.scss";
 
 const projects = [
@@ -67,12 +67,15 @@ const projects = [
     title: 'SkillSwap eLearning Platform',
     description: 'A cutting-edge web platform featuring a human-touch virtual instructor to provide interactive learning experiences with free knowledge modules and visually appealing UI/UX.',
     tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-    code: `const VirtualInstructor = ({ lesson }) => {
+    code: `const LearningPlatform = () => {
+  const [courses, setCourses] = useState([]);
+  const [activeLesson, setActiveLesson] = useState(null);
+  
   return (
-    <InstructorAvatar 
-      lesson={lesson}
-      interactive={true}
-    />
+    <div className="platform">
+      <CourseList courses={courses} />
+      <InteractiveLessonPlayer lesson={activeLesson} />
+    </div>
   );
 };`,
     img: '/assets/images/skillswap.png',
@@ -135,6 +138,70 @@ const projects = [
 
 export default function ProjectsSection() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile screen
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Production-grade spring configurations
+  const springConfig = useMemo(() => ({
+    desktop: {
+      type: 'spring' as const,
+      stiffness: 380,
+      damping: 32,
+      mass: 1.1,
+      restSpeed: 0.01,
+      restDelta: 0.01
+    },
+    mobile: {
+      type: 'spring' as const,
+      stiffness: 300,
+      damping: 30,
+      mass: 0.9,
+      restSpeed: 0.01,
+      restDelta: 0.01
+    }
+  }), []);
+
+  const overlayTransition = useMemo(() => ({
+    duration: isMobile ? 0.18 : 0.22,
+    ease: [0.4, 0, 0.2, 1]
+  }), [isMobile]);
+
+  const contentTransition = useMemo(() => ({
+    delay: isMobile ? 0.08 : 0.12,
+    duration: isMobile ? 0.18 : 0.25,
+    ease: [0.25, 0.1, 0.25, 1]
+  }), [isMobile]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (openIdx !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [openIdx]);
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && openIdx !== null) {
+        setOpenIdx(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [openIdx]);
 
   return (
     <section className={styles.projectsSection} id="projects">
@@ -150,33 +217,41 @@ export default function ProjectsSection() {
             <motion.div
               key={idx}
               className={proj.isCTA ? styles.ctaCard : styles.card}
+              layoutId={proj.isCTA ? undefined : `project-${idx}`}
               whileHover={proj.isCTA ? {} : {
-                scale: 1.045,
-                boxShadow: "0 14px 56px rgba(95,241,210,0.14)",
-                zIndex: 2,
-                transition: { duration: 0.17 }
+                scale: 1.035,
+                y: -4,
+                transition: { 
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 25
+                }
               }}
-              whileTap={proj.isCTA ? {} : { scale: 0.96 }}
+              whileTap={proj.isCTA ? {} : { 
+                scale: 0.98,
+                transition: { duration: 0.1, ease: [0.4, 0, 0.2, 1] } 
+              }}
+              initial={{ y: 40, opacity: 0, scale: 0.96 }}
               whileInView={{ y: 0, opacity: 1, scale: 1 }}
-              initial={{ y: 32, opacity: 0, scale: 0.95 }}
               transition={{
-                duration: 0.54,
-                ease: [0.23, 1, 0.32, 1],
-                delay: idx * 0.06
+                type: 'spring',
+                stiffness: 260,
+                damping: 25,
+                mass: 0.8,
+                delay: idx * 0.04
               }}
-              viewport={{ once: true, amount: 0.32 }}
+              viewport={{ once: true, amount: 0.25, margin: "-50px" }}
               onClick={() => (!proj.isCTA && setOpenIdx(idx))}
               style={{ cursor: proj.isCTA ? 'pointer' : 'zoom-in' }}
-              layoutId={`project-card-${idx}`}
               tabIndex={0}
               aria-label={
                 proj.isCTA ? proj.title : `Show more about ${proj.title}`
               }
             >
               {proj.img && (
-                <motion.div
+                <motion.div 
                   className={styles.cardImgWrap}
-                  layoutId={`project-img-${idx}`}
+                  layoutId={proj.isCTA ? undefined : `project-img-${idx}`}
                 >
                   <img src={proj.img} alt={`Preview of ${proj.title}`} className={styles.cardImg} draggable={false} />
                 </motion.div>
@@ -206,32 +281,29 @@ export default function ProjectsSection() {
         </div>
 
         {/* --- Animated Modal Overlay --- */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {openIdx !== null && (
             <motion.div
               className={styles.modalOverlay}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.13 }}
+              transition={overlayTransition}
               onClick={() => setOpenIdx(null)}
             >
               <motion.div
                 className={styles.modalCard}
-                layoutId={`project-card-${openIdx}`}
-                initial={false}
-                animate={{
-                  scale: 1,
-                  y: 0,
-                  opacity: 1,
-                  boxShadow: '0 35px 130px rgba(95,241,210,0.25)'
+                layoutId={`project-${openIdx}`}
+                drag={isMobile ? "y" : false}
+                dragConstraints={{ top: 0, bottom: 0 }}
+                dragElastic={{ top: 0, bottom: 0.3 }}
+                dragMomentum={false}
+                onDragEnd={(e, info) => {
+                  if (isMobile && info.offset.y > 120 && info.velocity.y > 100) {
+                    setOpenIdx(null);
+                  }
                 }}
-                exit={{ scale: 0.96, y: 65, opacity: 0, transition: { duration: 0.18 } }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 380,
-                  damping: 38
-                }}
+                transition={isMobile ? springConfig.mobile : springConfig.desktop}
                 onClick={e => e.stopPropagation()}
               >
                 <button className={styles.closeBtn}
@@ -240,19 +312,19 @@ export default function ProjectsSection() {
                   ×
                 </button>
                 {projects[openIdx].img && (
-                  <motion.div
+                  <motion.div 
                     className={styles.modalHero}
                     layoutId={`project-img-${openIdx}`}
-                    transition={{ type: 'spring', stiffness: 310, damping: 28 }}
                   >
                     <img src={projects[openIdx].img} alt={`${projects[openIdx].title} preview`} className={styles.modalImg} draggable={false} />
                   </motion.div>
                 )}
                 <motion.div
                   className={styles.modalContent}
-                  initial={{ opacity: 0, y: 38 }}
-                  animate={{ opacity: 1, y: 0, transition: { delay: 0.10, duration: 0.31 } }}
-                  exit={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={contentTransition}
                 >
                   <h3>{projects[openIdx].title}</h3>
                   <div className={styles.modalDesc}>{projects[openIdx].description}</div>

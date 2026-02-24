@@ -1,5 +1,5 @@
 // src/styles/globals.scss
-@import "./variables.scss";
+@use "./variables.scss" as *;
 
 /* Using your custom color variables */
 :root {

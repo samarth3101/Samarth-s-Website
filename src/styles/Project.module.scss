@@ -2,6 +2,8 @@
   background: var(--bg-main);
   padding: 92px 0 108px;
   overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
 }
 
 .container {
@@ -42,6 +44,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.1rem;
+  isolation: isolate;
+  perspective: 1000px;
 
   @media (max-width: 1000px) {
     grid-template-columns: repeat(2, 1fr);
@@ -66,6 +70,17 @@
   justify-content: flex-start;
   position: relative;
   cursor: pointer;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    box-shadow: 0 12px 48px rgba(95, 241, 210, 0.12);
+  }
 
   h3 {
     font-size: 1.13rem;
@@ -82,6 +97,13 @@
   }
 }
 
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
 .cardImgWrap {
   width: 100%;
   height: 124px;
@@ -93,6 +115,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateZ(0);
+  will-change: transform;
+  transform-origin: center center;
+  position: relative;
 }
 
 .cardImg {
@@ -102,6 +128,8 @@
   object-position: center 54%;
   user-select: none;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* === CTA CARD === */
@@ -156,11 +184,29 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(12, 18, 28, 0.85);
+  background: rgba(12, 18, 28, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: opacity;
+  isolation: isolate;
+  perspective: 1000px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 5rem 1rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 6rem 1rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5.5rem 0.5rem 1rem;
+  }
 }
 
 .modalCard {
@@ -169,16 +215,59 @@
   border-radius: 1.3rem;
   width: 96vw;
   max-width: 520px;
-  max-height: 90vh;
+  max-height: 82vh;
   padding: 1.6rem 1.4rem;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
+  box-shadow: 
+    0 0 0 1px rgba(95, 241, 210, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 24px 80px rgba(95, 241, 210, 0.2);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  overflow: hidden;
+
+  /* Drag indicator for mobile */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 90vw;
+    max-height: 78vh;
+    padding: 1.2rem 1rem;
+    border-radius: 1.1rem;
+
+    &::before {
+      opacity: 1;
+    }
+  }
 
   @media (max-width: 600px) {
-    padding: 1.2rem;
-    max-width: 99vw;
+    padding: 1.1rem 0.95rem;
+    max-width: 92vw;
+  }
+
+  @media (max-width: 480px) {
+    width: 92vw;
+    max-height: 75vh;
+    padding: 1rem 0.85rem;
   }
 }
 
@@ -190,6 +279,10 @@
   background: linear-gradient(110deg, var(--accent), rgba(18, 24, 38, 0.1));
   border-radius: 1.3rem 1.3rem 0 0;
   margin-bottom: 0.6rem;
+  transform: translateZ(0);
+  will-change: transform;
+  transform-origin: center center;
+  position: relative;
 
   .modalImg {
     width: 100%;
@@ -198,6 +291,17 @@
     object-position: center 54%;
     user-select: none;
     display: block;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  @media (max-width: 768px) {
+    max-height: 140px;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 120px;
+    border-radius: 1rem 1rem 0 0;
   }
 }
 
@@ -210,6 +314,9 @@
   max-height: 60vh;
   overflow-x: hidden;
   overflow-y: auto;
+  will-change: opacity, transform;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 
   h3 {
     font-size: 1.22rem;
@@ -225,7 +332,21 @@
   }
 
   @media (max-width: 600px) {
-    max-height: 66vh;
+    max-height: 52vh;
+    gap: 0.7rem;
+  }
+
+  @media (max-width: 480px) {
+    max-height: 48vh;
+    gap: 0.65rem;
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    .modalDesc {
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -241,6 +362,12 @@
   white-space: pre-line;
   margin: 0.5rem 0;
   border: 1px solid rgba(95, 241, 210, 0.2);
+
+  @media (max-width: 480px) {
+    font-size: 0.82rem;
+    padding: 0.6rem 0.75rem;
+    margin: 0.4rem 0;
+  }
 }
 
 .links {
@@ -256,6 +383,21 @@
     border-radius: 6px;
     font-weight: 500;
     text-decoration: none;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(95, 241, 210, 0.22);
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    a {
+      padding: 0.45rem 0.7rem;
+      font-size: 0.88rem;
+    }
   }
 }
 
@@ -268,6 +410,27 @@
   border: none;
   color: var(--muted);
   cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease, transform 0.2s ease;
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0.3rem;
+  
+  &:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.7rem;
+    top: 0.6rem;
+    right: 0.7rem;
+    padding: 0.4rem;
+  }
 }
 
 /* === SMALL SCREEN MOBILE ONLY === */
@@ -295,27 +458,27 @@
 
   .card,
   .ctaCard {
-    padding: 1rem 0.9rem;
-    min-height: 10rem;
+    padding: 1rem 0.85rem;
+    min-height: 11rem;
     border-radius: 1rem;
 
     h3 {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       margin-bottom: 0.4rem;
     }
 
     p {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       margin-bottom: 0.6rem;
       line-height: 1.5;
     }
   }
 
   .cardImgWrap {
-    height: 100px;
-    min-height: 90px;
+    height: 110px;
+    min-height: 100px;
     border-radius: 0.8rem 0.8rem 0 0;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.65rem;
   }
 
   .techList {
@@ -337,19 +500,20 @@
   }
 
   .modalCard {
-    padding: 1rem;
+    padding: 1rem 0.9rem;
     border-radius: 1rem;
-    max-height: 85vh;
+    max-height: 90vh;
+    width: 94vw;
   }
 
   .modalHero {
-    max-height: 120px;
+    max-height: 140px;
     border-radius: 0.8rem 0.8rem 0 0;
   }
 
   .modalContent {
     gap: 0.6rem;
-    max-height: 55vh;
+    max-height: 60vh;
 
     h3 {
       font-size: 1.1rem;
@@ -379,19 +543,35 @@
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .grid {
-    gap: 0.85rem;
+    gap: 1rem;
   }
 
   .card,
   .ctaCard {
-    min-height: 9rem;
-    padding: 0.9rem 0.8rem;
+    min-height: 10.5rem;
+    padding: 1rem 0.85rem;
   }
 
   .modalHero {
-    min-height: 70px;
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 650px) {
+  .grid {
+    gap: 0.9rem;
+  }
+
+  .card,
+  .ctaCard {
+    min-height: 9.5rem;
+    padding: 0.95rem 0.8rem;
+  }
+
+  .modalHero {
+    max-height: 130px;
   }
 }
 
