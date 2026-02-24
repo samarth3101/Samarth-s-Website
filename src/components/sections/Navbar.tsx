@@ -154,7 +154,7 @@ const Navbar = () => {
             custom={navLinks.length}
           >
             <a
-              href="/assets/Samarth-July.pdf"
+              href="/assets/Samarth-Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.resumeBtn}

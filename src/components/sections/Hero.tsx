@@ -87,7 +87,7 @@ const Hero: React.FC = () => {
             }}
           >
             <p className={styles.description}>
-              I'm a <span className={styles.highlight}>software engineer</span> and <span className={styles.highlight}>B.Tech student</span> specializing in <span className={styles.highlight}>AI and Machine Learning</span>. Skilled in <span className={styles.highlight}>Python, C++</span>, and <span className={styles.highlight}>full-stack development</span>, I build solutions that address real-world challenges, leveraging AI to solve complex problems and collaborating effectively in team settings.
+              I'm a <span className={styles.highlight}>B.Tech Computer Science student</span> specializing in <span className={styles.highlight}>AI and Machine Learning</span>. Skilled in <span className={styles.highlight}>Java, Python</span>, and the <span className={styles.highlight}>MERN stack</span>, I build full-stack web applications and AI models that solve real-world problems. As <span className={styles.highlight}>Vice President of ACM Student Chapter</span>, I lead tech-driven projects with a focus on secure, scalable backend systems and algorithmic problem-solving.
             </p>
           </motion.div>
 
@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
               ease: "easeOut" 
             }}
           >
-            <a href="/assets/Samarth-July.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/assets/Samarth-Resume.pdf" target="_blank" rel="noopener noreferrer">
               <span className={styles.cta}>
                 Check Out My Resume
               </span>

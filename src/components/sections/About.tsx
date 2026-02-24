@@ -23,7 +23,7 @@ const About: React.FC = () => {
     ];
 
     const technologies = {
-        "Languages": ["Python", "C++", "JavaScript", "TypeScript", "Java"],
+        "Languages": ["Java", "Python", "JavaScript", "TypeScript", "C++"],
         "Frontend": ["React", "Next.js", "HTML5", "CSS3", "Tailwind CSS"],
         "Backend": ["Node.js", "Express", "FastAPI", "MongoDB", "PostgreSQL"],
         "AI/ML": ["TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "NumPy"]
@@ -150,7 +150,7 @@ const About: React.FC = () => {
                         <motion.div variants={itemVariants} className={styles.introduction}>
                             <div className={styles.variableProximityParagraph}>
                                 <VariableProximity
-                                    label="Hello! I'm Samarth, a passionate Software Engineer and B.Tech student specializing in AI and Machine Learning. I thrive on solving complex problems and building innovative solutions that make a real-world impact."
+                                    label="Hello! I'm Samarth, a B.Tech Computer Science student specializing in AI and Machine Learning. I work with Java, Python, and the MERN stack, building AI models and full-stack applications. As Vice President of ACM Student Chapter, I lead tech-driven projects focused on secure, scalable backend systems and algorithmic problem-solving."
                                     containerRef={containerRef}
                                     fromFontVariationSettings="'wght' 500, 'slnt' 0"
                                     toFontVariationSettings="'wght' 900, 'slnt' -10"
@@ -161,7 +161,7 @@ const About: React.FC = () => {
                             </div>
                             <div className={styles.variableProximityParagraph}>
                                 <VariableProximity
-                                    label="My journey in technology spans across full-stack development, artificial intelligence, and competitive programming. I have a strong foundation in the  data structures and algorithms, helps me write efficient, scalable code that performs well under pressure."
+                                    label="My journey spans full-stack development, AI/ML, and competitive programming. With a strong foundation in Data Structures and Algorithms, I particularly enjoy backend development and designing secure, scalable, and reliable systems that solve practical challenges."
                                     containerRef={containerRef}
                                     fromFontVariationSettings="'wght' 500, 'slnt' 0"
                                     toFontVariationSettings="'wght' 900, 'slnt' -10"
@@ -172,7 +172,7 @@ const About: React.FC = () => {
                             </div>
                             <div className={styles.variableProximityParagraph}>
                                 <VariableProximity
-                                    label="When I'm not coding, you'll find me exploring the latest AI research, participating in coding competitions, or working on projects that bridge the gap between theoretical computer science and practical applications."
+                                    label="I'm naturally curious and always eager to learn, especially in AI, machine learning, and secure backend technologies. My goal is to contribute to impactful projects that solve real-world problems through clean, efficient, and effective software solutions."
                                     containerRef={containerRef}
                                     fromFontVariationSettings="'wght' 500, 'slnt' 0"
                                     toFontVariationSettings="'wght' 900, 'slnt' -10"
