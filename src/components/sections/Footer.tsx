@@ -5,7 +5,7 @@ const Footer: React.FC = () => (
   <footer className={styles.footer}>
     <div className={styles.container}>
       <span className={styles.left}>
-        &copy; 2025 Samarth Patil
+        &copy; 2026 Samarth Patil
       </span>
       
       <div className={styles.center}>

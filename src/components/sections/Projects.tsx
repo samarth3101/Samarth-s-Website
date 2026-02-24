@@ -13,6 +13,22 @@ const projects = [
     link: 'https://pcuacm.netlify.app'
   },
   {
+    title: 'Zecure - AI Cybersecurity Platform',
+    description: 'A modular AI cybersecurity framework with autonomous agents for threat detection. Features real-time monitoring, 3D threat visualization, and self-learning models for phishing, fraud, and data leak protection.',
+    tech: ['Python', 'TypeScript', 'React', 'AI/ML', 'LLMs'],
+    img: '/assets/images/zecure.png',
+    repo: 'https://github.com/samarth3101/Zecurex-platform',
+    link: 'https://github.com/samarth3101/Zecurex-platform'
+  },
+  {
+    title: 'UniPass - Event Attendance System',
+    description: 'AI-powered event attendance management with JWT-signed QR tickets, real-time analytics via SSE streaming, and multi-role dashboards. Features secure validation, automated email ticketing, and comprehensive audit trails.',
+    tech: ['FastAPI', 'Next.js', 'PostgreSQL', 'TypeScript'],
+    img: '/assets/images/unipass.png',
+    repo: 'https://github.com/samarth3101/UniPass',
+    link: 'https://github.com/samarth3101/UniPass'
+  },
+  {
     title: 'Real-Time Stock Data Visualization',
     description: 'A financial data visualization project utilizing Perspective to render real-time stock market trends, inspired by J.P. Morgan & Chase + Forage experience.',
     tech: ['React', 'Perspective', 'WebSocket', 'Financial APIs'],
@@ -49,22 +65,6 @@ const projects = [
     img: '/assets/images/spotify.png',
     repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/2.Spotify-clone',
     link: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/2.Spotify-clone'
-  },
-  {
-    title: 'CyberTronix - Transformers Project',
-    description: 'A dynamic web project showcasing rotating cards, animations, and interactive UI elements using JavaScript and CSS with advanced 3D transformations.',
-    tech: ['JavaScript', 'CSS', 'HTML', 'Animations'],
-    img: '/assets/images/cyber.png',
-    repo: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/4.%20Transformers',
-    link: 'https://github.com/samarth3101/WebVerse/tree/main/My_Projects/4.%20Transformers'
-  },
-  {
-    title: 'Simon Game',
-    description: 'A classic Simon Game built purely with JavaScript, utilizing DOM manipulation and core web development concepts to create an interactive and engaging memory game.',
-    tech: ['JavaScript', 'HTML', 'CSS', 'DOM'],
-    img: '/assets/images/simon.png',
-    repo: 'https://github.com/samarthpatil/simon-game',
-    link: 'https://simon-game-demo.vercel.app'
   },
   {
     title: 'Explore All Projects',
