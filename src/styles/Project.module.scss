@@ -31,9 +31,10 @@
 
   .sectionNumber {
     font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
     color: var(--accent);
     font-weight: 600;
-    font-size: clamp(1rem, 1.2rem, 1.3rem);
+    line-height: 1;
   }
 
   .sectionTitle {
