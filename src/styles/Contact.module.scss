@@ -28,18 +28,8 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
-  position: relative;
-
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    margin-left: 2rem;
-    opacity: 0.3;
-  }
+  gap: 1rem;
+  margin-bottom: 2.4rem;
 
   .sectionNumber {
     font-family: 'JetBrains Mono', monospace;
@@ -58,7 +48,11 @@
   }
 
   .divider {
-    display: none;
+    flex: 1;
+    height: 1.5px;
+    margin-left: 1rem;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0.25;
   }
 }
 

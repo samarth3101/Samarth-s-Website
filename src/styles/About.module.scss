@@ -33,42 +33,40 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
-  position: relative;
+  gap: 1rem;
+  margin-bottom: 2.4rem;
 
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    margin-left: 2rem;
-    opacity: 0.3;
+  .sectionNumber {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--accent);
+    font-weight: 600;
+    line-height: 1;
   }
-}
 
-.sectionNumber {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.2rem;
-  color: var(--accent);
-  font-weight: 600;
-  line-height: 1;
+  .sectionTitle {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.1;
+    
+    .split-parent {
+      display: inline-block;
+    }
+  }
+
+  .divider {
+    flex: 1;
+    height: 1.5px;
+    margin-left: 1rem;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0.25;
+  }
 }
 
 .titleWrapper {
   position: relative;
-}
-
-.sectionTitle {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0;
-  line-height: 1.1;
-  
-  .split-parent {
-    display: inline-block;
-  }
 }
 
 /* UPDATED: Main Content - Photo Left, Text Right */

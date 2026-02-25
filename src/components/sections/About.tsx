@@ -99,6 +99,7 @@ const About: React.FC = () => {
                             rootMargin="-50px"
                         />
                     </motion.div>
+                    <motion.div variants={itemVariants} className={styles.divider} aria-hidden="true" />
                 </motion.div>
 
                 {/* Main Content */}

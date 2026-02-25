@@ -28,19 +28,10 @@
 
 .header {
     display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 4rem;
-    position: relative;
-
-    &::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(90deg, var(--accent) 0%, rgba(95, 241, 210, 0.3) 50%, transparent 100%);
-        margin-left: 2rem;
-        opacity: 0.4;
-    }
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 2.4rem;
 
     .sectionNumber {
         font-family: 'JetBrains Mono', monospace;
@@ -51,16 +42,11 @@
     }
 
     .sectionTitle {
-        font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-        font-weight: 800;
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
         color: var(--text-main);
         margin: 0;
         line-height: 1.1;
-        background: linear-gradient(135deg, var(--text-main) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: -0.02em;
     }
 
     .divider {
