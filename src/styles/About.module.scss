@@ -73,7 +73,7 @@
 .content {
   display: grid;
   grid-template-columns: 380px 1fr; /* Fixed width for photo section */
-  gap: 5rem;
+  gap: 4rem;
   align-items: start;
 }
 
@@ -204,6 +204,23 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
+
+.paragraph {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }
 
@@ -557,14 +574,10 @@
   line-height: inherit;
   color: inherit;
   
-  // Override highlight colors for Variable Proximity text
+  // Disable hover effects on Variable Proximity characters
   :global(.variable-proximity-char) {
     color: inherit;
-    
-    &:hover {
-      color: var(--accent);
-      text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
-    }
+    transition: none;
   }
 }
 

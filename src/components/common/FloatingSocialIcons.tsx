@@ -9,7 +9,7 @@ const SocialIcons: React.FC = () => {
   const [showChatbot, setShowChatbot] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<{id: number, text: string, isUser: boolean, isSecurityWarning?: boolean}[]>([
-    { id: 1, text: "👋 Hey! I'm Zecure AI, your intelligent companion built by Samarth. I know everything about his work, skills, and projects. What would you like to explore?", isUser: false }
+    { id: 1, text: "👋 **Hey there! I'm Zecure AI**\n\nI'm Samarth's intelligent assistant, designed to help you explore his work and expertise.\n\n✨ **I can tell you about:**\n• Tech skills & stack\n• Featured projects\n• Work experience\n• Education & certifications\n• Contact information\n\n💡 **Try the quick questions below, or just ask me anything!**", isUser: false }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -47,9 +47,11 @@ const SocialIcons: React.FC = () => {
   ];
 
   const quickQuestions = [
-    "💻 Skills & Tech Stack",
-    "🚀 Best Projects", 
-    "🛡️ About Zecure AI"
+    "Skills",
+    "Projects", 
+    "About",
+    "Contact",
+    "Experience"
   ];
 
   // Security keywords that trigger warnings
@@ -68,6 +70,26 @@ const SocialIcons: React.FC = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Lock body scroll when chatbot is open
+  useEffect(() => {
+    if (showChatbot && !isMinimized) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [showChatbot, isMinimized]);
 
   // Click outside to minimize functionality
   useEffect(() => {
@@ -90,6 +112,39 @@ const SocialIcons: React.FC = () => {
   // Auto scroll to bottom
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Format message text with proper line breaks and styling
+  const formatMessage = (text: string) => {
+    return text.split('\n').map((line, index) => {
+      // Check if line contains **text** pattern for headings
+      if (line.includes('**')) {
+        const parts = line.split(/\*\*/);
+        return (
+          <div key={index} className={styles.messageLine}>
+            {parts.map((part, i) => {
+              // Odd indices are bold text (between **)
+              if (i % 2 === 1) {
+                return (
+                  <strong key={i} className={styles.messageHeading} style={{display: 'inline'}}>
+                    {part}
+                  </strong>
+                );
+              }
+              return <span key={i}>{part}</span>;
+            })}
+          </div>
+        );
+      }
+      // Regular line
+      return line.trim() ? (
+        <div key={index} className={styles.messageLine}>
+          {line}
+        </div>
+      ) : (
+        <div key={index} className={styles.messageSpacing} />
+      );
+    });
   };
 
   useEffect(() => {
@@ -217,35 +272,47 @@ const SocialIcons: React.FC = () => {
 
   const getBotResponse = (question: string): string => {
     const responses = {
-      skills: "💻 Samarth is a full-stack developer with expertise in:\n\n• React & Next.js for modern web apps\n• TypeScript for type-safe development\n• Node.js & Python for backend systems\n• AI integration and security-focused development\n\nHe combines these technologies with clean code practices and innovative problem-solving approaches.",
+      skills: "💻 **TECHNICAL EXPERTISE**\n\n🎨 **Frontend Development:**\n• React.js & Next.js 14 (App Router, SSR, ISR)\n• TypeScript for type-safe applications\n• Tailwind CSS, SCSS, Framer Motion\n• Responsive & accessible UI/UX design\n\n⚙️ **Backend Development:**\n• Node.js, Express.js, FastAPI\n• RESTful APIs & GraphQL\n• MongoDB, PostgreSQL, SQL\n• JWT authentication & security\n\n🤖 **AI & Machine Learning:**\n• Python for ML/AI development\n• LLM integration & prompt engineering\n• TensorFlow & PyTorch basics\n• AI-powered chatbots & automation\n\n🛠️ **Tools & Technologies:**\n• Git, GitHub, VS Code\n• Docker, AWS basics\n• Agile methodologies\n• Performance optimization",
       
-      projects: "🚀 Samarth has built impressive projects including:\n\n• Modern portfolio websites with advanced animations\n• AI-powered applications and chatbots\n• Secure backend systems and APIs\n• E-commerce and business applications\n\nEach project showcases his attention to detail and technical excellence. Check out his GitHub for live demos!",
+      projects: "🚀 **FEATURED PROJECTS**\n\n🌐 **PCU ACM Website**\nFull-stack platform with ticketing system, contact forms, and modern UI. Built with React, Node.js, MongoDB.\n🔗 Live: pcuacm.netlify.app\n\n🛡️ **Zecure - AI Cybersecurity**\nModular AI framework with autonomous threat detection, real-time monitoring, 3D visualization. Python, TypeScript, React, ML.\n\n📊 **UniPass - Event Management**\nJWT-signed QR tickets, SSE streaming analytics, multi-role dashboards. FastAPI, Next.js, PostgreSQL.\n\n📈 **Real-Time Stock Visualization**\nFinancial data dashboard using Perspective, inspired by J.P. Morgan experience. React, WebSocket.\n\n💡 **SkillSwap eLearning**\nInteractive learning platform with AI instructor. MERN stack.\n\n✨ View all projects on GitHub: github.com/samarth3101",
       
-      zecure: "🛡️ I'm Zecure AI - Samarth's intelligent creation! I represent his vision of:\n\n• AI-powered assistance and automation\n• Security-focused development practices\n• Interactive user experiences\n• Intelligent conversation capabilities\n\nI'm designed to showcase his skills in AI development and user-centric design.",
+      zecure: "🛡️ **ZECURE AI - YOUR INTELLIGENT ASSISTANT**\n\n👋 **About Me:**\nI'm Zecure - an AI-powered chatbot created by Samarth to showcase his expertise in:\n\n✨ **Key Features:**\n• Natural language understanding\n• Context-aware conversations\n• Built-in security monitoring\n• Real-time response generation\n• Professional information delivery\n\n🔐 **Security Focus:**\nI actively monitor conversations for security threats and inappropriate content, demonstrating Samarth's commitment to safe, ethical AI development.\n\n💡 **Purpose:**\nI help visitors learn about Samarth's work, skills, and projects through an engaging conversational interface.\n\n🎯 **Ask me about:**\nSkills, projects, experience, contact info, or anything about Samarth's capabilities!",
       
-      experience: "🌟 Samarth brings a perfect blend of technical expertise and creative problem-solving. He's worked on diverse projects from web applications to AI systems, always delivering scalable, secure, and user-friendly solutions.",
+      experience: "🌟 **PROFESSIONAL EXPERIENCE**\n\n💼 **Current Role:**\nB.Tech Computer Science student specializing in AI/ML at Parul University\n\n🏆 **Leadership:**\n• Vice President - ACM Student Chapter\n• Leading tech-driven initiatives\n• Organizing workshops and hackathons\n• Mentoring fellow students\n\n🎯 **Focus Areas:**\n• Full-stack web development\n• AI/ML implementation\n• Secure backend architecture\n• Algorithmic problem-solving\n\n📚 **Continuous Learning:**\n• AWS Machine Learning (Graduate Level)\n• Red Hat App Development\n• Oracle Cloud Infrastructure\n• Multiple certifications in ML, Data Science\n\n💪 **Key Strengths:**\n• Clean, maintainable code\n• Scalable system design\n• Security-first approach\n• User-centric development",
       
-      help: "💡 Samarth can help transform your ideas into reality! Whether you need a modern web application, AI integration, or complete digital solutions, he brings the skills and vision to make it happen.",
+help: "💡 **HOW SAMARTH CAN HELP YOU**\n\n🎯 **Services Offered:**\n\n🌐 **Web Development:**\n• Modern, responsive websites\n• E-commerce platforms\n• Business applications\n• SaaS products\n\n🤖 **AI Integration:**\n• Chatbots & virtual assistants\n• ML model integration\n• Data analysis & visualization\n• Automation solutions\n\n⚙️ **Backend Development:**\n• RESTful API design\n• Database architecture\n• Authentication systems\n• Cloud deployment\n\n✨ **Why Choose Samarth:**\n• Attention to detail\n• Security-focused\n• Scalable solutions\n• Modern tech stack\n• Clean code practices\n\n📧 **Let's Collaborate!**\nReach out to discuss your project and transform ideas into reality!",
       
-      contact: "📞 Ready to work with Samarth? Reach out at samarth.patil3101@gmail.com or connect on LinkedIn. He's always excited to discuss new projects and innovative solutions!",
+      contact: "📧 **GET IN TOUCH WITH SAMARTH**\n\n✉️ **Email:**\nsamarth.patil3101@gmail.com\n\n🔗 **Professional Links:**\n• LinkedIn: /in/samarth-patil-3101spp\n• GitHub: github.com/samarth3101\n• Portfolio: [This Website]\n\n💬 **Social Media:**\n• Instagram: @samarthpatil0131\n\n⏰ **Response Time:**\nTypically responds within 24 hours\n\n💼 **Currently Available For:**\n• Freelance projects\n• Collaboration opportunities\n• Full-time positions\n• Consulting work\n\n🚀 **Ready to work together?**\nDon't hesitate to reach out - Samarth is always excited to discuss new projects and innovative solutions!",
       
-      default: "🤔 That's a great question! I know Samarth's work inside and out. Feel free to ask about his skills, projects, experience, or how he can help with your next venture. I'm here to share everything about his capabilities!"
+      education: "🎓 **EDUCATION & CERTIFICATIONS**\n\n🏫 **Current Education:**\nB.Tech in Computer Science (AI & ML)\nParul University\n\n📜 **Professional Certifications:**\n\n☁️ **Cloud & Infrastructure:**\n• AWS Machine Learning (Graduate Level)\n• AWS Cloud Architect\n• Oracle Cloud Infrastructure AI\n\n💻 **Development:**\n• Red Hat App Development\n• Full Stack Development (Apna College)\n• Django Full-Stack Development\n\n🤖 **AI & Data Science:**\n• Machine Learning Master (RapidMiner)\n• Data Engineering Master (Altair)\n• Data Science Master (AICTE)\n• Introduction to AI (IBM)\n\n🔒 **Security:**\n• Cybersecurity for Everyone (UMD)\n\n📊 **Database:**\n• Understanding Basic SQL\n\n🎯 12+ Professional Certifications demonstrating continuous learning and expertise!",
+      
+      hire: "💼 **HIRE SAMARTH**\n\n✅ **Why Work With Samarth:**\n\n🎯 **Proven Track Record:**\n• 25+ completed projects\n• 3+ years of coding experience\n• Strong portfolio across domains\n\n💪 **Technical Excellence:**\n• Full-stack development expertise\n• Modern tech stack (React, Next.js, Node.js, Python)\n• AI/ML integration capabilities\n• Security-first approach\n\n🚀 **Reliable & Professional:**\n• Clean, maintainable code\n• Documentation & best practices\n• Agile methodology\n• Excellent communication\n\n🎨 **Complete Solutions:**\n• Frontend + Backend\n• Database design\n• Cloud deployment\n• Ongoing maintenance\n\n📧 **Next Steps:**\n1. Email: samarth.patil3101@gmail.com\n2. Share your project requirements\n3. Schedule a discovery call\n4. Get a detailed proposal\n\n💡 Let's build something amazing together!",
+      
+      default: "🤔 **NEED MORE INFORMATION?**\n\nI'm Zecure AI, and I can help you learn about:\n\n💻 **Skills & Tech Stack** - Programming languages, frameworks, tools\n🚀 **Projects** - Featured work and accomplishments\n👨‍💻 **Experience** - Background and expertise\n🎓 **Education** - Certifications and qualifications\n📧 **Contact** - How to get in touch\n💼 **Hiring** - Why work with Samarth\n\n✨ **Try asking:**\n• \"What technologies does Samarth know?\"\n• \"Tell me about his best projects\"\n• \"How can I contact Samarth?\"\n• \"What is his experience?\"\n\n🎯 I'm here to help - just ask away!"
     };
 
     const lowerQuestion = question.toLowerCase();
     
-    if (lowerQuestion.includes('skill') || lowerQuestion.includes('tech') || lowerQuestion.includes('stack') || lowerQuestion.includes('technology')) {
+    if (lowerQuestion.includes('skill') || lowerQuestion.includes('tech') || lowerQuestion.includes('stack') || lowerQuestion.includes('technology') || lowerQuestion.includes('language') || lowerQuestion.includes('framework')) {
       return responses.skills;
-    } else if (lowerQuestion.includes('project') || lowerQuestion.includes('work') || lowerQuestion.includes('portfolio')) {
+    } else if (lowerQuestion.includes('project') || lowerQuestion.includes('work') || lowerQuestion.includes('portfolio') || lowerQuestion.includes('built') || lowerQuestion.includes('created')) {
       return responses.projects;
-    } else if (lowerQuestion.includes('zecure') || lowerQuestion.includes('ai') || lowerQuestion.includes('about')) {
+    } else if (lowerQuestion.includes('zecure') || lowerQuestion.includes('about you') || lowerQuestion.includes('who are you') || lowerQuestion.includes('chatbot')) {
       return responses.zecure;
-    } else if (lowerQuestion.includes('experience') || lowerQuestion.includes('background')) {
+    } else if (lowerQuestion.includes('experience') || lowerQuestion.includes('background') || lowerQuestion.includes('role') || lowerQuestion.includes('position')) {
       return responses.experience;
-    } else if (lowerQuestion.includes('help') || lowerQuestion.includes('hire') || lowerQuestion.includes('work with')) {
+    } else if (lowerQuestion.includes('education') || lowerQuestion.includes('certification') || lowerQuestion.includes('degree') || lowerQuestion.includes('certificate') || lowerQuestion.includes('course')) {
+      return responses.education;
+    } else if (lowerQuestion.includes('hire') || lowerQuestion.includes('freelance') || lowerQuestion.includes('available') || lowerQuestion.includes('work with')) {
+      return responses.hire;
+    } else if (lowerQuestion.includes('help') || lowerQuestion.includes('service') || lowerQuestion.includes('offer')) {
       return responses.help;
-    } else if (lowerQuestion.includes('contact') || lowerQuestion.includes('email') || lowerQuestion.includes('reach')) {
+    } else if (lowerQuestion.includes('contact') || lowerQuestion.includes('email') || lowerQuestion.includes('reach') || lowerQuestion.includes('connect') || lowerQuestion.includes('linkedin')) {
       return responses.contact;
+    } else if (lowerQuestion.includes('hello') || lowerQuestion.includes('hi') || lowerQuestion.includes('hey')) {
+      return"👋 **Hello there!**\n\nI'm Zecure AI, Samarth's intelligent assistant. I'm here to help you learn about his skills, projects, and how he can help with your needs.\n\n✨ **What would you like to know?**\n\nFeel free to ask about his tech stack, projects, experience, or anything else!";
+    } else if (lowerQuestion.includes('thank') || lowerQuestion.includes('thanks')) {
+      return "😊 **You're welcome!**\n\nHappy to help! If you have any other questions about Samarth or his work, feel free to ask.\n\n📧 Or connect directly at: samarth.patil3101@gmail.com";
     }
     
     return responses.default;
@@ -254,8 +321,7 @@ const SocialIcons: React.FC = () => {
   const handleQuickQuestion = (question: string) => {
     if (isInputDisabled) return;
     setHasUserChatted(true);
-    const cleanQuestion = question.replace(/[💻🚀🛡️]/g, '').trim();
-    setInputValue(cleanQuestion);
+    setInputValue(question);
     setTimeout(() => handleSendMessage(), 100);
   };
 
@@ -319,7 +385,7 @@ const SocialIcons: React.FC = () => {
                     </div>
                   )}
                   <div className={styles.messageContent}>
-                    {message.text}
+                    {formatMessage(message.text)}
                   </div>
                 </div>
               ))}
@@ -359,7 +425,12 @@ const SocialIcons: React.FC = () => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && inputValue.trim() && !isInputDisabled) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
                 placeholder={isInputDisabled ? "Input disabled for security" : "Ask me about Samarth..."}
                 className={`${styles.messageInput} ${isInputDisabled ? styles.inputDisabled : ''}`}
                 disabled={isInputDisabled}
@@ -477,7 +548,7 @@ const SocialIcons: React.FC = () => {
                       </div>
                     )}
                     <div className={styles.messageContent}>
-                      {message.text}
+                      {formatMessage(message.text)}
                     </div>
                   </div>
                 ))}
@@ -517,7 +588,12 @@ const SocialIcons: React.FC = () => {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && inputValue.trim() && !isInputDisabled) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
                   placeholder={isInputDisabled ? "Input disabled for security" : "Ask me about Samarth..."}
                   className={`${styles.messageInput} ${isInputDisabled ? styles.inputDisabled : ''}`}
                   disabled={isInputDisabled}

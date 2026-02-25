@@ -3,16 +3,10 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import SplitText from "../ui/SplitText";
 import ProfileCard from "../ui/ProfileCard";
-import VariableProximity from "../ui/VariableProximity";
-import '../../styles/VariableProximity.css';
 import styles from "../../styles/About.module.scss";
 import { Code, Database, Brain, Cpu, Globe, Zap } from 'lucide-react';
 
 const About: React.FC = () => {
-    // Create a ref for the container that VariableProximity will use
-    const containerRef = useRef<HTMLDivElement>(null);
-    
-
     const skills = [
         { name: "Frontend Development", icon: Globe, color: "var(--accent)" },
         { name: "AI & Machine Learning", icon: Brain, color: "var(--accent)" },
@@ -73,7 +67,7 @@ const About: React.FC = () => {
 
     return (
         <section className={styles.about} id="about">
-            <div className={styles.container} ref={containerRef}>
+            <div className={styles.container}>
                 {/* Section Header */}
                 <motion.div
                     className={styles.header}
@@ -149,39 +143,15 @@ const About: React.FC = () => {
                     {/* RIGHT SIDE - Text Content */}
                     <div className={styles.textContent}>
                         <motion.div variants={itemVariants} className={styles.introduction}>
-                            <div className={styles.variableProximityParagraph}>
-                                <VariableProximity
-                                    label="Hello! I'm Samarth, a B.Tech Computer Science student specializing in AI and Machine Learning. I work with Java, Python, and the MERN stack, building AI models and full-stack applications. As Vice President of ACM Student Chapter, I lead tech-driven projects focused on secure, scalable backend systems and algorithmic problem-solving."
-                                    containerRef={containerRef}
-                                    fromFontVariationSettings="'wght' 500, 'slnt' 0"
-                                    toFontVariationSettings="'wght' 900, 'slnt' -10"
-                                    radius={120}
-                                    falloff="exponential"
-                                    className={styles.variableProximityText}
-                                />
-                            </div>
-                            <div className={styles.variableProximityParagraph}>
-                                <VariableProximity
-                                    label="My journey spans full-stack development, AI/ML, and competitive programming. With a strong foundation in Data Structures and Algorithms, I particularly enjoy backend development and designing secure, scalable, and reliable systems that solve practical challenges."
-                                    containerRef={containerRef}
-                                    fromFontVariationSettings="'wght' 500, 'slnt' 0"
-                                    toFontVariationSettings="'wght' 900, 'slnt' -10"
-                                    radius={120}
-                                    falloff="exponential"
-                                    className={styles.variableProximityText}
-                                />
-                            </div>
-                            <div className={styles.variableProximityParagraph}>
-                                <VariableProximity
-                                    label="I'm naturally curious and always eager to learn, especially in AI, machine learning, and secure backend technologies. My goal is to contribute to impactful projects that solve real-world problems through clean, efficient, and effective software solutions."
-                                    containerRef={containerRef}
-                                    fromFontVariationSettings="'wght' 500, 'slnt' 0"
-                                    toFontVariationSettings="'wght' 900, 'slnt' -10"
-                                    radius={120}
-                                    falloff="exponential"
-                                    className={styles.variableProximityText}
-                                />
-                            </div>
+                            <p className={styles.paragraph}>
+                                Hello! I'm Samarth, a B.Tech Computer Science student specializing in AI and Machine Learning. I work with Java, Python, and the MERN stack, building AI models and full-stack applications. As Vice President of ACM Student Chapter, I lead tech-driven projects focused on secure, scalable backend systems and algorithmic problem-solving.
+                            </p>
+                            <p className={styles.paragraph}>
+                                My journey spans full-stack development, AI/ML, and competitive programming. With a strong foundation in Data Structures and Algorithms, I particularly enjoy backend development and designing secure, scalable, and reliable systems that solve practical challenges.
+                            </p>
+                            <p className={styles.paragraph}>
+                                I'm naturally curious and always eager to learn, especially in AI, machine learning, and secure backend technologies. My goal is to contribute to impactful projects that solve real-world problems through clean, efficient, and effective software solutions.
+                            </p>
                         </motion.div>
 
                         {/* Skills Grid */}

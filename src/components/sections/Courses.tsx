@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styles from "../../styles/Courses.module.scss";
+import Carousel from "../ui/Carousel";
+// import ScrollStack, { ScrollStackItem } from "../ui/ScrollStack";
 
 interface Course {
     id: number;
@@ -179,21 +181,28 @@ const Courses: React.FC = () => {
     const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
     const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
+    const [isMobile, setIsMobile] = useState(false);
     const observerRef = useRef<IntersectionObserver | null>(null);
 
-    // Optimized mobile detection
-    const isMobile = useCallback(() => {
-        return typeof window !== 'undefined' && window.innerWidth <= 768;
+    // Mobile detection with effect
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
     const handleMouseEnter = useCallback((id: number) => {
-        if (!isMobile()) {
+        if (!isMobile) {
             setHoveredCard(id);
         }
     }, [isMobile]);
 
     const handleMouseLeave = useCallback(() => {
-        if (!isMobile()) {
+        if (!isMobile) {
             setHoveredCard(null);
         }
     }, [isMobile]);
@@ -205,7 +214,7 @@ const Courses: React.FC = () => {
     // Enhanced intersection observer for mobile flip behavior
     useEffect(() => {
         if (typeof window === 'undefined') return;
-        if (!isMobile()) return;
+        if (!isMobile) return;
 
         observerRef.current = new IntersectionObserver(
             (entries) => {
@@ -244,7 +253,7 @@ const Courses: React.FC = () => {
     }, [visibleCards, isMobile]);
 
     const isCardFlipped = useCallback((cardId: number) => {
-        return isMobile() ? visibleCards.has(cardId) : hoveredCard === cardId;
+        return isMobile ? visibleCards.has(cardId) : hoveredCard === cardId;
     }, [hoveredCard, visibleCards, isMobile]);
 
     const handleCredentialClick = useCallback((url: string, e: React.MouseEvent) => {
@@ -276,143 +285,163 @@ const Courses: React.FC = () => {
                     <div className={styles.divider} aria-hidden="true" />
                 </header>
 
-                <div className={styles.grid}>
-                    {courses.map((course) => {
-                        const isFlipped = isCardFlipped(course.id);
-                        const hasImageError = imageErrors.has(course.id);
+                {/* Mobile Carousel View */}
+                {isMobile ? (
+                    <Carousel
+                        items={courses.map((course) => ({
+                            id: course.id,
+                            title: course.title,
+                            description: course.description,
+                            tech: course.technologies,
+                            img: course.image,
+                            link: course.enrollUrl
+                        }))}
+                        baseWidth={340}
+                        autoplay={true}
+                        autoplayDelay={4000}
+                        pauseOnHover={true}
+                        loop={true}
+                    />
+                ) : (
+                    /* Desktop Grid View */
+                    <div className={styles.grid}>
+                        {courses.map((course) => {
+                            const isFlipped = isCardFlipped(course.id);
+                            const hasImageError = imageErrors.has(course.id);
 
-                        return (
-                            <article
-                                key={course.id}
-                                data-card-id={course.id}
-                                className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
-                                onMouseEnter={() => handleMouseEnter(course.id)}
-                                onMouseLeave={handleMouseLeave}
-                                tabIndex={0}
-                                role="button"
-                                aria-label={`${course.title} certification details`}
-                            >
-                                <div className={styles.cardInner}>
-                                    {/* Front Side */}
-                                    <div className={styles.cardFront}>
-                                        <div className={styles.cardImgWrap}>
-                                            {hasImageError ? (
-                                                <div 
-                                                    className={styles.placeholderImg}
-                                                    style={{ background: getPlaceholderGradient(course.category) }}
-                                                >
-                                                    <div className={styles.placeholderIcon}>🎓</div>
-                                                    <div className={styles.placeholderText}>
-                                                        {course.category.split(' ')[0]}
+                            return (
+                                <article
+                                    key={course.id}
+                                    data-card-id={course.id}
+                                    className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
+                                    onMouseEnter={() => handleMouseEnter(course.id)}
+                                    onMouseLeave={handleMouseLeave}
+                                    tabIndex={0}
+                                    role="button"
+                                    aria-label={`${course.title} certification details`}
+                                >
+                                    <div className={styles.cardInner}>
+                                        {/* Front Side */}
+                                        <div className={styles.cardFront}>
+                                            <div className={styles.cardImgWrap}>
+                                                {hasImageError ? (
+                                                    <div 
+                                                        className={styles.placeholderImg}
+                                                        style={{ background: getPlaceholderGradient(course.category) }}
+                                                    >
+                                                        <div className={styles.placeholderIcon}>🎓</div>
+                                                        <div className={styles.placeholderText}>
+                                                            {course.category.split(' ')[0]}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : (
-                                                <img
-                                                    src={course.image}
-                                                    alt={`${course.title} certification`}
-                                                    className={styles.cardImg}
-                                                    loading="lazy"
-                                                    onError={() => handleImageError(course.id)}
-                                                />
-                                            )}
-                                            
-                                            <div className={styles.badgeContainer}>
-                                                <span className={styles.categoryBadge}>
-                                                    {course.category}
-                                                </span>
-                                                <span className={`${styles.levelBadge} ${styles[course.level.toLowerCase()]}`}>
-                                                    {course.level}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.cardContent}>
-                                            <h3 className={styles.cardTitle}>{course.title}</h3>
-                                            <p className={styles.coursePreview} title={course.description}>
-                                                {course.description.length > 90
-                                                    ? `${course.description.substring(0, 87)}...`
-                                                    : course.description
-                                                }
-                                            </p>
-                                            
-                                            <ul className={styles.techList}>
-                                                {course.technologies.slice(0, 3).map((tech, index) => (
-                                                    <li key={`${course.id}-${tech}-${index}`}>{tech}</li>
-                                                ))}
-                                                {course.technologies.length > 3 && (
-                                                    <li className={styles.techMore}>
-                                                        +{course.technologies.length - 3}
-                                                    </li>
+                                                ) : (
+                                                    <img
+                                                        src={course.image}
+                                                        alt={`${course.title} certification`}
+                                                        className={styles.cardImg}
+                                                        loading="lazy"
+                                                        onError={() => handleImageError(course.id)}
+                                                    />
                                                 )}
-                                            </ul>
-                                            
-                                            <div className={styles.courseMeta}>
-                                                <span className={styles.issuer} title={course.students}>
-                                                    {course.students}
-                                                </span>
-                                                <span className={styles.rating}>
-                                                    {course.rating}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Back Side */}
-                                    <div className={styles.cardBack}>
-                                        <div className={styles.backContent}>
-                                            <div className={styles.backHeader}>
-                                                <h3 className={styles.backTitle}>{course.title}</h3>
-                                                <span className={styles.backCategory}>{course.category}</span>
-                                            </div>
-
-                                            <p className={styles.backDescription} title={course.description}>
-                                                {course.description}
-                                            </p>
-
-                                            <div className={styles.statsContainer}>
-                                                <div className={styles.statItem}>
-                                                    <span className={styles.statLabel}>Duration</span>
-                                                    <span className={styles.statValue}>{course.duration}</span>
-                                                </div>
-                                                <div className={styles.statItem}>
-                                                    <span className={styles.statLabel}>Level</span>
-                                                    <span className={styles.statValue}>{course.level}</span>
-                                                </div>
-                                                <div className={styles.statItem}>
-                                                    <span className={styles.statLabel}>Issuer</span>
-                                                    <span className={styles.statValue} title={course.students}>
-                                                        {course.students}
+                                                
+                                                <div className={styles.badgeContainer}>
+                                                    <span className={styles.categoryBadge}>
+                                                        {course.category}
+                                                    </span>
+                                                    <span className={`${styles.levelBadge} ${styles[course.level.toLowerCase()]}`}>
+                                                        {course.level}
                                                     </span>
                                                 </div>
                                             </div>
 
-                                            <div className={styles.techContainer}>
-                                                <ul className={styles.backTechList}>
-                                                    {course.technologies.slice(0, 4).map((tech, index) => (
-                                                        <li key={`${course.id}-back-${tech}-${index}`}>{tech}</li>
+                                            <div className={styles.cardContent}>
+                                                <h3 className={styles.cardTitle}>{course.title}</h3>
+                                                <p className={styles.coursePreview} title={course.description}>
+                                                    {course.description.length > 90
+                                                        ? `${course.description.substring(0, 87)}...`
+                                                        : course.description
+                                                    }
+                                                </p>
+                                                
+                                                <ul className={styles.techList}>
+                                                    {course.technologies.slice(0, 3).map((tech, index) => (
+                                                        <li key={`${course.id}-${tech}-${index}`}>{tech}</li>
                                                     ))}
+                                                    {course.technologies.length > 3 && (
+                                                        <li className={styles.techMore}>
+                                                            +{course.technologies.length - 3}
+                                                        </li>
+                                                    )}
                                                 </ul>
+                                                
+                                                <div className={styles.courseMeta}>
+                                                    <span className={styles.issuer} title={course.students}>
+                                                        {course.students}
+                                                    </span>
+                                                    <span className={styles.rating}>
+                                                        {course.rating}
+                                                    </span>
+                                                </div>
                                             </div>
+                                        </div>
 
-                                            <div className={styles.actionContainer}>
-                                                {course.enrollUrl && (
-                                                    <button
-                                                        type="button"
-                                                        className={styles.credentialButton}
-                                                        onClick={(e) => handleCredentialClick(course.enrollUrl!, e)}
-                                                        aria-label={`View ${course.title} credential`}
-                                                    >
-                                                        View Credential
-                                                    </button>
-                                                )}
+                                        {/* Back Side */}
+                                        <div className={styles.cardBack}>
+                                            <div className={styles.backContent}>
+                                                <div className={styles.backHeader}>
+                                                    <h3 className={styles.backTitle}>{course.title}</h3>
+                                                    <span className={styles.backCategory}>{course.category}</span>
+                                                </div>
+
+                                                <p className={styles.backDescription} title={course.description}>
+                                                    {course.description}
+                                                </p>
+
+                                                <div className={styles.statsContainer}>
+                                                    <div className={styles.statItem}>
+                                                        <span className={styles.statLabel}>Duration</span>
+                                                        <span className={styles.statValue}>{course.duration}</span>
+                                                    </div>
+                                                    <div className={styles.statItem}>
+                                                        <span className={styles.statLabel}>Level</span>
+                                                        <span className={styles.statValue}>{course.level}</span>
+                                                    </div>
+                                                    <div className={styles.statItem}>
+                                                        <span className={styles.statLabel}>Issuer</span>
+                                                        <span className={styles.statValue} title={course.students}>
+                                                            {course.students}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className={styles.techContainer}>
+                                                    <ul className={styles.backTechList}>
+                                                        {course.technologies.slice(0, 4).map((tech, index) => (
+                                                            <li key={`${course.id}-back-${tech}-${index}`}>{tech}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+
+                                                <div className={styles.actionContainer}>
+                                                    {course.enrollUrl && (
+                                                        <button
+                                                            type="button"
+                                                            className={styles.credentialButton}
+                                                            onClick={(e) => handleCredentialClick(course.enrollUrl!, e)}
+                                                            aria-label={`View ${course.title} credential`}
+                                                        >
+                                                            View Credential
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </article>
-                        );
-                    })}
-                </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </section>
     );
